@@ -1,0 +1,42 @@
+{% extends 'authentication/base.html' %}
+{% block title %}Log In | NoteMe{% endblock title %}
+{% block content %}
+<div class="container">
+    <div class="columns">
+      <div class="column">
+      </div>
+      <div class="column has-text-centered" style="padding-top:80px">
+        {% if error %}
+        <div class="notification is-danger is-small">
+            <p><small>{{ error }}</small></p>
+        </div>
+        {% endif %}
+        <form method="POST">
+            {% csrf_token %}
+            <div class="field">
+                <label class="label">Username</label>
+                <div class="control">
+                    <input class="input" type="text" name="username" placeholder="Enter your preffered username" required>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Password</label>
+                <div class="control">
+                    <input class="input {% if passworderror %}is-danger{% endif %}" type="password" name="password" placeholder="Enter a preffered password" required>
+                </div>           
+                {% if passworderror %}
+                <p class="help is-danger">{{ passworderror }}</p>
+                {% endif %}
+            </div>
+            <br>
+            <div class="field">
+                <div class="control">
+                    <button class="button is-success is-small">Submit</button>
+                </div>
+            </div>  
+        </form>
+      </div>
+      <div class="column"></div>
+    </div>
+</div>
+{% endblock content %}

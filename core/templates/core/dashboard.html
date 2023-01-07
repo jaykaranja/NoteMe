@@ -1,0 +1,128 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Dashboard{% endblock title %}
+{% block content %}
+<div class="columns" id="maincolumns">
+    <div class="column is-3 is-hidden-mobile" id="menubar">
+        <section class="hero is-fullheight" id="menubar">
+            <div class="hero-head">
+                <nav class="navbar">
+                    <div class="navbar-brand">
+                        <div class="level-item">
+                            <figure class="image">
+                                <img class="is-rounded" src="{% static 'core/images/profile.jpg' %}" id="profileimg">
+                            </figure>
+                        </div>
+                    </div>   
+                    <div class="navbar-start">
+                        <div class="navbar-item">
+                            <ul class="profileinfo">
+                                <li><p>James Karanja</p></li>
+                                <li><p>mainakaranja2001@gmail.com</p></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <br>
+                <div class="field">
+                    <div class="control has-icons-right">
+                        <input class="input is-small" type="text" name="query" id="queryinput" placeholder="Search">
+                        <span class="icon is-small is-right">
+                            <i class="fa fa-search"></i>
+                            </span>
+                    </div>
+                </div>
+                <br>
+                <div class="menu">
+                    <ul class="menu-list">
+                    <li><a class="{% if category.id == 1 %}is-active{% endif %}" href="{% url 'dashboard' %}"><i class="fa fa-circle" id="myday"></i>&nbsp;&nbsp;My Day</a></li>
+                    <li><a class="{% if category.id == 2 %}is-active{% endif %}" href="{% url 'importanttasks' %}"><i class="fa fa-star" id="important"></i>&nbsp;&nbsp;Important</a></li>
+                    <li><a class="{% if category.id == 3 %}is-active{% endif %}"  href="{% url 'category' 3 %}"><i class="fa fa-user" id="planned"></i>&nbsp;&nbsp;Planned</a></li>
+                    <li><a class="{% if category.id == 4 %}is-active{% endif %}"  href="{% url 'alltasks' %}"><i class="fa fa-home" id="allicon"></i>&nbsp;&nbsp;All</a></li>
+                    <li><a class="{% if category.id == 5 %}is-active{% endif %}"  href="{% url 'completedtasks' %}"><i class="fa fa-check" id="completed"></i>&nbsp;&nbsp;Completed</a></li>
+                    <li><a class="{% if category.id == 6 %}is-active{% endif %}"  href="{% url 'category' 6 %}"><i class="fa fa-user" id="assignedtome"></i>&nbsp;&nbsp;Assigned to me</a></li>
+                    <li><a class="{% if category.id == 7 %}is-active{% endif %}" href="{% url 'category' 7 %}"><i class="fa fa-home" id="tasks"></i>&nbsp;&nbsp;Tasks</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="column is-9" id="maindiv">
+        <section class="hero is-fullheight" id="maindiv">
+            <div class="hero-container">
+                <!-- Main container -->
+                <nav class="level">
+                    <!-- Left side -->
+                    <div class="level-left">
+                        <div class="level-item">
+                            <p class="subtitle is-5" id="activetitle">
+                            {% if category %}{{ category.category_name }}{% else %}No category{% endif %}<br>
+                            {% if time %}
+                            <small>{{ time }}</small>
+                            {% endif %}
+                            </p>
+                        </div> 
+                    </div>
+                </nav>
+                {% if message %}
+                <div class="container">
+                    <center><p class="help is-{{ messagetype }}">{{ message }}</p><center>
+                    <br>
+                </div>
+                {% endif %}
+                {% if tasks %}
+                {% for task in tasks %}
+                <div class="notification is-small" id="taskcard">
+                    <div class="is-flex is-flex-direction-row is-flex-wrap-wrap is-justify-content-space-between">
+                        <div class="is-flex">
+                                {% if task.completed %}
+                                    <a href="{% url 'taskcheck' task.id category.id %}"><i class="fa fa-check"></i></a>
+                                {% else %}
+                                    <a href="{% url 'taskcheck' task.id category.id %}"><i class="fa fa-circle"></i></a>
+                                {% endif %}
+                            <div class="notes-content">
+                                <div class="is-flex is-flex-direction-column">
+                                    <div class="is-flex">
+                                        <p>{{ task.content }}</p>
+                                    </div>
+                                    <div class="is-flex">
+                                        <small>{{ task.category.category_name }}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="is-flex">
+                                <a href="{% url 'importance' task.id category.id %}"><i class="fa fa-star" {% if task.important %} style="color: #cd9ba4;"{% else %}style="color:#3d3d3d;"{% endif %}></i></a>
+                                &nbsp; &nbsp;
+                                <a href="{% url 'deletetask' task.id category.id %}"><i class="fa fa-minus"></i></a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <div class="container has-text-centered">
+                    <p class="title is-4" id="text">There are no tasks in this category yet.</p>
+                </div>
+                {% endif %}
+            </div>
+            {% if category.id == 4 or category.id == 5 or category.id == 2 %}
+            {% else %}
+            <div class="is-fixed-bottom">
+                <form method="POST" action="{% url 'addtask' category.id %}">
+                    {% csrf_token %}
+                    <div class="is-flex is-flex-direction-row">
+                        <div class="is-flex is-flex-grow-4">
+                            <input class="input is-normal" type="text" id="entryinput" name="content" placeholder="Add a task">
+                        </div>
+                        <div class="is-flex">
+                            <button class="button is-small is-warning" id="entryinputbtn"><i class="far fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            {% endif %}
+        </section>
+    </div>
+</div>
+
+{% endblock content %}

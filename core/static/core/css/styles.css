@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Abel&display=swap');
+* {
+    font-family: 'Abel', sans-serif;
+
+}
+html {
+    background-color:#222222;
+}
+#menubar {
+    background-color: #222222;
+}
+
+body {
+    background-color: #333333;
+}
+
+#maindiv {
+    background-color: #1c1c1c;
+}
+
+.notes-content {
+    margin-top: -0.8rem;
+    padding-left: 1.5rem;
+}
+
+#maincolumns {
+    padding-top: 15px;
+}
+
+#brand-image {
+    height: 400px;
+    width: 250px;
+}
+#profileimg {
+    height: 50px;
+    width: 50px;
+}
+
+.hero-head {
+    padding-left: 18px;
+    padding-top: 10px;
+}
+
+.profileinfo li p {
+    font-size: 12px;
+    color: #ededed;
+    text-shadow: #1c1c1c;
+    overflow: hidden;
+}
+
+#queryinput {
+    background-color: #292929;
+    color: #ededed;
+    border-style: none;
+}
+
+.menu ul li a{
+    font-size: 18px;
+    color: #ededed;
+}
+
+.menu ul li a:hover {
+    background-color: #343434;
+    color: #ededed;
+}
+
+.menu ul li a.is-active {
+    background-color: #333333;
+    color: #ededed;
+}
+
+.hero-container {
+    padding: 15px;
+}
+
+#activetitle {
+    color: #ededed;
+    font-weight: 30px;
+    font-size: 2rem;
+}
+
+#entryinput {
+    background-color: #292929;
+    padding: 1rem;
+    height: 2rem;
+    margin-left: 17px;
+}
+
+#entryinputbtn {
+    width:9%;
+    height: 2rem;
+    font-size: 13px;
+    margin-left: 10px;
+
+}
+#entryinput:focus {
+    background-color: #3b3b3b;
+    color: #ededed;
+    font-size: 13px;
+
+}
+
+
+#taskcard {
+    background-color: #292929;
+    color: #ededed;
+    height: 4rem;
+}
+
+#taskcard .level {
+    height: 25px;
+}
+
+#favoriteicon {
+    color: yellow;
+}
+
+#myday {
+    color: #727d86;
+}
+
+
+#planned {
+    color: #88cfca;
+}
+
+#allicon {
+    color: #c55f5c;
+}
+
+#completed {
+    color: #a1514f;
+}
+
+#assignedtome {
+    color: #96ccb5;
+}
+
+#tasks {
+    color: #6d7fc7;
+}
+
+.fa.fa-minus {
+    color: lightcoral;
+}
+
+#text {
+    color: white;
+}
